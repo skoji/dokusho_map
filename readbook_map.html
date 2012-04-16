@@ -1,11 +1,24 @@
 <!DOCTYPE html>
 <html>
   <head>
+	<title>読書地図er</title>
     <script type="text/javascript" src="jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="dokusho.js"></script>
+	<link rel="stylesheet" type="text/css" href="readbook.css" />
   </head>
   <body>
     <label>書名</label>:<input type="text" id="keyword" value="そして誰もいなくなった" /><input type="button" value="go" id="go" />
-    <div id="result" />
+
+	<p>結果</p>
+    <div id="result"></div>
+
+	<div class="tweets_wrap">
+	<p>使ったツイート</p>
+	<div class="tweets" id="used"></div></div>
+
+	<div class="tweets_wrap">
+	<p>使わなかったツイート</p>
+	<div class="tweets" id="rejected"></div></div>
+
   </body>
 </html>
