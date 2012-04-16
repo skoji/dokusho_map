@@ -1,0 +1,57 @@
+p {
+	margin: 0;
+	padding: 0;
+}
+
+h1 {
+	font-size: 1.4em;
+	color: #AA4400;
+}
+
+h2 {
+	font-size: 1em;
+	color: #AA4400;
+}
+
+input#keyword {
+	width: 30%;
+}
+div.note {
+	font-size: 0.8em;
+	color: #444444;
+}
+
+
+div#result {
+	width: 95%;
+	border: solid 1px;
+	min-height: 200px;
+}
+
+div.tweets_wrap {
+	width: 47%;
+	margin: 0.5em 1% 1em 0;
+	float: left;
+}
+
+div.tweets {
+	margin: 0;
+	overflow: scroll;
+	border: solid 1px;
+	padding: 0.5em;
+}
+
+div.tweets li {
+	list-style:none;
+	padding-bottom: 0.5em;
+	border-top: dashed 1px #444444;
+}
+
+div.tweets li img {
+	display: block;
+	float: left;
+}
+
+div#result-text {
+	display: none;
+}
