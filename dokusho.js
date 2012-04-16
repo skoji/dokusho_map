@@ -50,7 +50,6 @@ var dokusho = (
 			if (item.text.indexOf("間違えた、『髑髏島の") == 0) {
 				return false;
 			}
-			item.text = item.text.replace("『アリス･ミラー城』","アリス･ミラー城");
 			return true;
 		}
 	 	
@@ -61,8 +60,17 @@ var dokusho = (
 			}
 
 
-			var text = item.text.replace(/RT.*$/,'').replace(word, '').replace("（","(").replace("）",")").replace('(既出)','').replace('【既出】','').replace('（既出）','');
 
+	 		var text = item.text.replace(/RT.*$/,'');
+	 		var text = item.text.replace(/QT.*$/,'');
+			text = text.replace(/（/g,"(");
+			text = text.replace(/）/g,")");
+
+			$.each([new RegExp(word, "g"), /\(既出\)/g, /【既出】/g,/（既出）/g ],
+				   function() {
+					   text = text.replace(this, "");
+				   });
+			
 			var arr =  text.split('→');
 			if (arr.length < 3 || arr.length % 2 == 0) {
 				if (item.text.indexOf("RT") != 0)
@@ -71,9 +79,8 @@ var dokusho = (
 				arr = $.map(arr, function(str, index) {
 					console.log(str);
 					if (index % 2 == 0) {
-						var m = str.match(/[「『](.*?)[」』]([\(].*[\)])?/);
+						var m = str.match(/[「『](.*)[」』](\(.*\))?/);
 						if (m) {
-							m[1] = m[1].replace("アリス･ミラー城","『アリス･ミラー城』");
 							return { type: 'node', label: m[1].trim(), author: m[2] ? m[2].trim() : "" };
 						} else {
 							console.log("パース失敗");
