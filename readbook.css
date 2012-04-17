@@ -23,9 +23,9 @@ div.note {
 
 
 div#result {
-	width: 95%;
+	width: 100%;
 	border: solid 1px;
-	min-height: 200px;
+	height: 100%;
 }
 
 div.tweets_wrap {
