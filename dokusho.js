@@ -2,6 +2,8 @@ $(function() {
 	$("input#go").click(function() {
 		if ($("input#keyword").val().length) {
 			$("#result").empty();
+			$("#used").empty();
+			$("#rejected").empty();
 			dokusho.clear();
 			dokusho.search($("input#keyword").val(),1);
 		} else {
