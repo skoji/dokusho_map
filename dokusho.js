@@ -3,7 +3,7 @@ $(function() {
 		if ($("input#keyword").val().length) {
 			$("#result").empty();
 			dokusho.clear();
-			dokusho.search("#読書地図" + $("input#keyword").val(),1);
+			dokusho.search($("input#keyword").val(),1);
 		} else {
 			return false;
 		}
@@ -22,13 +22,14 @@ if (!console) {
 var dokusho = (
 	function() {
 		var maindata = {
-			name: "",
+			rootbook: "",
 			tweets: [],
 			used:  [],
 			rejected: [],
 			idval:1,
 			books:{},
 			clear: function() {
+				this.rootbook = "";
 				this.tweets =  [];
 				this.parsed = [];
 				this.used =  [];
@@ -50,6 +51,24 @@ var dokusho = (
                 nodes: {
                     shape: "ROUNDRECT",
                     size: "auto",
+					color: { discreteMapper:
+							 { attrName: "bookname",
+							   entries: [ { attrValue: maindata.rootbook, value: "#AA4400" }]
+							 }
+						   },
+					labelFontSize: {
+						discreteMapper:
+						{ attrName: "bookname",
+						  entries: [ { attrValue: maindata.rootbook, value: 13 }]
+						}
+					},
+					labelFontWeight: {
+						discreteMapper:
+						{ attrName: "bookname",
+						  entries: [ { attrValue: maindata.rootbook, value: "bold" }]
+						}
+					}
+
                 },
                 edges: {
                     width: 2,
@@ -59,6 +78,7 @@ var dokusho = (
 			var networ_json = {
                 dataSchema: {
                     nodes: [ { name: "label", type: "string" },
+							 { name: "bookname", type: "string" }
                            ],
                     edges: [ { name: "label", type: "string" }
                            ]
@@ -73,7 +93,7 @@ var dokusho = (
 			$.each(maindata.parsed, function(i, p) {
 				$.each(p, function(i, elem) {
 					if (elem.type == 'node') {
-						networ_json.data.nodes.push({id: elem.id, label: elem.label + "\n" + elem.author});
+						networ_json.data.nodes.push({id: elem.id, label: elem.label + "\n" + elem.author, bookname: elem.label });
 					} else {
 						networ_json.data.edges.push({id: elem.source + "-" + elem.target,
 													 label: elem.label,
@@ -100,8 +120,8 @@ var dokusho = (
 					 });
 
 		}
-		function done(word) {
-			maindata.name = word;
+		function done(word, rootbook) {
+			maindata.rootbook = rootbook;
 			maindata.tweets = maindata.tweets.reverse();
 			$.each(maindata.tweets, function(i,item) {
 				parse(item,word);
@@ -219,7 +239,8 @@ var dokusho = (
 			clear: function() {
 				maindata.clear();
 			},
-			search: function(word, page) {
+			search: function(rootbook, page) {
+				word = "#読書地図" + rootbook;
 				var that = this;
 				$.ajax({
       				type: "GET",
@@ -235,9 +256,9 @@ var dokusho = (
 							maindata.tweets.push(item)
 						});
 						if (page < 15 && data.results.length > 0)
-							that.search(word, page + 1);
+							that.search(rootbook, page + 1);
 						else 
-							done(word);
+							done(word, rootbook);
 					}
 				});
 			},
