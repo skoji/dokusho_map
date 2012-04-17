@@ -2,6 +2,7 @@ $(function() {
 	$("input#go").click(function() {
 		if ($("input#keyword").val().length) {
 			$("#result").empty();
+			dokusho.clear();
 			dokusho.search("#読書地図" + $("input#keyword").val(),1);
 		} else {
 			return false;
@@ -14,14 +15,28 @@ String.prototype.trim = function() {
 	return this.replace(/^\s+|\s+$/g, "");
 }
 
+if (!console) {
+	var console = { log: function(){} };
+}
+
 var dokusho = (
 	function() {
-		var tweets =  [];
-		var parsed = [];
-		var used =  [];
-		var rejected = [];
-		var idval = 1;
-		var books = {};
+		var maindata = {
+			name: "",
+			tweets: [],
+			used:  [],
+			rejected: [],
+			idval:1,
+			books:{},
+			clear: function() {
+				this.tweets =  [];
+				this.parsed = [];
+				this.used =  [];
+				this.rejected = [];
+				this.idval = 1;
+				this.books = {};
+			}
+		}
 
 		function renderTweet(elem, item) {
 			elem.append($("<li />").append($("<img />").attr("src", item.profile_image_url)).
@@ -54,8 +69,8 @@ var dokusho = (
 				}
 			};
 
-			var id_before = idval + "";
-			$.each(parsed, function(i, p) {
+			var id_before = maindata.idval + "";
+			$.each(maindata.parsed, function(i, p) {
 				$.each(p, function(i, elem) {
 					if (elem.type == 'node') {
 						networ_json.data.nodes.push({id: elem.id, label: elem.label + "\n" + elem.author});
@@ -86,20 +101,22 @@ var dokusho = (
 
 		}
 		function done(word) {
-			$.each(tweets.reverse(), function(i,item) {
+			maindata.name = word;
+			maindata.tweets = maindata.tweets.reverse();
+			$.each(maindata.tweets, function(i,item) {
 				parse(item,word);
 			});
 
-			$.each(parsed, function(i, p) {
+			$.each(maindata.parsed, function(i, p) {
 				$("#result-text").append($("<li />")
-									.append($("<span />").append(JSON.stringify(p))));
+										 .append($("<span />").append(JSON.stringify(p))));
 				console.log(JSON.stringify(p));
 			});
 			
-			$.each(used, function(i, item) {
+			$.each(maindata.used, function(i, item) {
 				renderTweet($("#used"),item);
 			});
-			$.each(rejected, function(i,item) {
+			$.each(maindata.rejected, function(i,item) {
 				renderTweet($("#rejected"),item);
 			});
 			$("#result-title").text(word);
@@ -119,7 +136,7 @@ var dokusho = (
 			});
 			item.text = str;
 		}
-			
+		
 		function handleSpecialCase(item, word) {
 			item.text = item.text.replace("星の王子様","星の王子さま");
 			item.text = item.text.replace("（「!!」は見逃してください）", "");
@@ -136,7 +153,7 @@ var dokusho = (
 	 	
 		function parse(item, word) {
 			if (!handleSpecialCase(item, word)) {
-				rejected.push(item);
+				maindata.rejected.push(item);
 				return
 			}
 
@@ -159,7 +176,7 @@ var dokusho = (
 			var arr =  text.split('→');
 			if (arr.length < 3 || arr.length % 2 == 0) {
 				if (item.text.indexOf("RT") != 0)
-					rejected.push(item);
+					maindata.rejected.push(item);
 			} else {
 				var id_before;
 				var edge_before;
@@ -168,16 +185,16 @@ var dokusho = (
 						var m = str.match(/[「『](.*)[」』](\(.*\))?/);
 						if (m) {
 							var label = m[1].trim();
-							if (books[label]) {
+							if (maindata.books[label]) {
 								if (edge_before) {
-									edge_before.target = books[label];
+									edge_before.target = maindata.books[label];
 								}
 								edge_before = null;
-								id_before = books[label];
+								id_before = maindata.books[label];
 							} else {
 								var author = m[2] ? m[2].trim() : "";
-								var id =  "" + idval ++;
-								books[label] = id;
+								var id =  "" + maindata.idval ++;
+								maindata.books[label] = id;
 								var node = { type: 'node', label: label, author: author, id: id };
 								id_before = id;
 								if (edge_before) {
@@ -193,12 +210,15 @@ var dokusho = (
 						return edge_before = { type: 'edge', label: str.trim(), source: id_before};
 					}
 				});
-				used.push(item);
-				parsed.push(arr);
+				maindata.used.push(item);
+				maindata.parsed.push(arr);
 			}
 		}
 		
 		return {
+			clear: function() {
+				maindata.clear();
+			},
 			search: function(word, page) {
 				var that = this;
 				$.ajax({
@@ -212,7 +232,7 @@ var dokusho = (
 					dataType: "jsonp",
 					success: function(data) {
 						$.each(data.results, function(i, item) {
-							tweets.push(item)
+							maindata.tweets.push(item)
 						});
 						if (page < 15 && data.results.length > 0)
 							that.search(word, page + 1);
