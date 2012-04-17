@@ -8,13 +8,14 @@
     <script type="text/javascript" src="cytoscape_web/js/min/AC_OETags.min.js"></script>
     <script type="text/javascript" src="cytoscape_web/js/min/cytoscapeweb.min.js"></script>
     <script type="text/javascript" src="jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="urlvars.js"></script>
+    <script type="text/javascript" src="jquery.parsequery.js"></script>
     <script type="text/javascript" src="dokusho.js"></script>
     <script type="text/javascript">
 	  $(document).ready(function() {
 	     var keyword;
-	     if (keyword = $.getUrlVar('keyword')) {
-	        $("#keyword").val(decodeURI(keyword));
+	     var q = $.parsequery(window.location.href);
+	     if (keyword = q.get('keyword')) {
+	        $("#keyword").val(keyword);
 	        dokusho.search($("input#keyword").val());
   	     }
 	  });

@@ -1,7 +1,8 @@
 $(function() {
     $("input#go").click(function() {
         if ($("input#keyword").val().length) {
-            dokusho.search($("input#keyword").val());
+			var q = $.parsequery(window.location.href);
+			window.location.href = q.set('keyword', $("input#keyword").val()).toString();
         } else {
             return false;
         }
