@@ -45,6 +45,7 @@ div.tweets li {
 	list-style:none;
 	padding-bottom: 0.5em;
 	border-top: dashed 1px #444444;
+	clear:both;
 }
 
 div.tweets li img {
