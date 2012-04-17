@@ -39,6 +39,8 @@ var dokusho = (
 			}
 		}
 
+		var vis;
+
 		function renderTweet(elem, item) {
 			elem.append($("<li />").append($("<img />").attr("src", item.profile_image_url)).
 						append($("<span />").append("@" + item.from_user + ":" +   item.text)));
@@ -112,7 +114,7 @@ var dokusho = (
 				flashInstallerPath: "cytoscape_web/swf/playerProductInstall"
 			};
 			
-			var vis = new org.cytoscapeweb.Visualization(map_id, options);
+			vis = new org.cytoscapeweb.Visualization(map_id, options);
 			vis.draw({ network: networ_json,
 					   edgeLabelsVisible: true,
 					   visualStyle: visual_style,
@@ -144,6 +146,7 @@ var dokusho = (
 			$("#rejected-title").text("「"+ word + "」図の作成に使わなかったツイート");
 
 			draw();
+			$("#link-to-image").toggle();
 		}
 
 		var ascii = '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@-.,:';
@@ -238,6 +241,10 @@ var dokusho = (
 		return {
 			clear: function() {
 				maindata.clear();
+			},
+			exportNetwork: function(format, url, options) {
+				if (!options) options = {}
+				vis.exportNetwork(format, url, options);
 			},
 			search: function(rootbook, page) {
 				word = "#読書地図" + rootbook;

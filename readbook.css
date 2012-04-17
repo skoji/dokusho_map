@@ -28,6 +28,10 @@ div#result {
 	height: 100%;
 }
 
+p#link-to-image {
+	display: none;
+}
+
 div.tweets_wrap {
 	width: 47%;
 	margin: 0.5em 1% 1em 0;
