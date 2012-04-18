@@ -1,62 +1,101 @@
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
 p {
-	margin: 0;
-	padding: 0;
+    margin: 0;
+    padding: 0;
 }
 
 h1 {
-	font-size: 1.4em;
-	color: #AA4400;
+    font-size: 1.4em;
+    color: #AA4400;
 }
 
 h2 {
-	font-size: 1em;
-	color: #AA4400;
+    font-size: 1em;
+    color: #AA4400;
+}
+
+span#keyword-area {
+    font-weight: bold;
 }
 
 input#keyword {
-	width: 30%;
-}
-div.note {
-	font-size: 0.8em;
-	color: #444444;
+    width: 30%;
+    font-size: 1em;
+    font-weight: bold;
 }
 
+ div.note {
+      font-size: 0.8em;
+       color: #444444;
+ }
+
+div.note ul {
+    margin: 1em;
+    padding: 0;
+}
+
+div.note li {
+    list-style:none;
+}
 
 div#result {
-	width: 100%;
-	border: solid 1px;
-	height: 100%;
+    margin-top: 0.5em;
+    border: solid 1px;
+    width: 100%;
+    height: 100%;
 }
 
-p#link-to-image {
-	display: none;
+div#generated-area {
+    display: none;
+    overflow: hidden;
 }
 
 div.tweets_wrap {
-	width: 47%;
-	margin: 0.5em 1% 1em 0;
-	float: left;
+    width: 47%;
+    margin: 0.5em 1% 1em 0;
+    float: left;
 }
 
 div.tweets {
-	margin: 0;
-	overflow: scroll;
-	border: solid 1px;
-	padding: 0.5em;
+    margin: 0;
+    overflow: scroll;
+    border: solid 1px;
+    padding: 0.5em;
 }
 
 div.tweets li {
-	list-style:none;
-	padding-bottom: 0.5em;
-	border-top: dashed 1px #444444;
-	clear:both;
+    list-style:none;
+    padding-bottom: 0.5em;
+    border-top: dashed 1px #444444;
+    clear:both;
 }
 
 div.tweets li img {
-	display: block;
-	float: left;
+    display: block;
+    float: left;
 }
 
 div#result-text {
-	display: none;
+    display: none;
+}
+
+div#footer {
+    margin: 1em 0 0 0;
+    clear: both;
+    border-top: dashed 1px;
+}
+div#footer ul {
+    margin: 0;
+    padding: 0;
+    
+}
+div#footer li {
+    list-style:none;
+    font-size: 0.8em;
+    color: #884444;
+    display: inline;
 }

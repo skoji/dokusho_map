@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta charset="UTF-8">
-	<title>読書地図er</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <title>読書地図er</title>
     <script type="text/javascript" src="cytoscape_web/js/min/json2.min.js"></script>
     <script type="text/javascript" src="cytoscape_web/js/min/AC_OETags.min.js"></script>
     <script type="text/javascript" src="cytoscape_web/js/min/cytoscapeweb.min.js"></script>
@@ -11,49 +11,47 @@
     <script type="text/javascript" src="jquery.parsequery.js"></script>
     <script type="text/javascript" src="dokusho.js"></script>
     <script type="text/javascript">
-	  $(document).ready(function() {
-	     var keyword;
-	     var q = $.parsequery(window.location.href);
-	     if (keyword = q.get('keyword')) {
-	        $("#keyword").val(keyword);
-	        dokusho.search($("input#keyword").val());
-  	     }
-	  });
-	</script>
-	<link rel="stylesheet" type="text/css" href="readbook.css" />
+      $(document).ready(function() {
+      var keyword;
+      var q = $.parsequery(window.location.href);
+      if (keyword = q.get('keyword')) {
+      $("#keyword").val(keyword);
+      dokusho.search($("input#keyword").val());
+      }
+      });
+    </script>
+    <link rel="stylesheet" type="text/css" href="readbook.css" />
   </head>
   <body>
-	<h1>読書地図er α</h1>
-    <label>書名</label>:<input id="keyword" type="text" id="keyword" value="そして誰もいなくなった" /><input type="button" value="go" id="go" />
+    <h1>読書地図er α</h1>
+    
+    <div class="note">
+      <ul>
+	<li>読書地図 <a href="http://twitter.com/dokusyo_map">@dokusyo_map</a> の自動生成ツールです。</li>
+	<li>#読書地図《書名》のタグがついたツイートを検索し、地図を生成します</li>
+      </ul>
+    </div>
+    <span id="keyword-area"><label>書名</label>: <input id="keyword" type="text" id="keyword" value="そして誰もいなくなった" /><input type="button" value="go" id="go" /></span>
+    <div id="generated-area">
+      <div id="result"></div>
+      <p id="link-to-image"><a href="javascript:void(0)" onclick="dokusho.exportNetwork('png', 'export.php?type=png')">読書地図を画像としてダウンロード</a></p>
 
-	<div class="note">
-	  <ul>
-		<li>読書地図 <a href="http://twitter.com/dokusyo_map">@dokusyo_map</a>用につくりました</li>
-		<li>上の箱に根っこになる書名を入れて、[go]をおしてください。#読書地図《書名》のタグを検索します。</li>
-		<li>見づらくてごめんなさい。つかんで動かしたり、拡大したりできます。</li>
-		<li>Twitter検索でリアルタイムに生成します。時間が経つと見られなくなる可能性があります</li>
-		<li>『書名』(著者名)→関係→『書名』(著者名) って形のツイートしか理解できません</li>
-		<li>『書名』(著者名)→関係→『書名』(著者名) →関係→『書名』(著者名) みたいな連鎖はOKです。</li>
-		<li>かっこ「」または『』で囲われたものを書名と認識します。</li>
-		<li>()で囲われたものを著者名と認識します。</li>
-		<li>公式・非公式RTは対象外です</li>
-		<li>ハッシュタグつきのツイートが対象です</li>
-		<li>間違いがあったら <a href="http://twitter.com/skoji">@skoji</a>までお知らせ下さい。</li>
-		<li>ソースコードは<a href="https://github.com/skoji/dokusho_map">こちら</a></li>
-	  </ul>
-	</div>
-	<h2 id="result-title"></h2>
-    <div id="result"></div>
-	<p id="link-to-image"><a href="javascript:void(0)" onclick="dokusho.exportNetwork('png', 'export.php?type=png')">読書地図を画像としてダウンロード</a></p>
-
-	<div class="tweets_wrap">
+      <div class="tweets_wrap">
 	<p id="used-title"></p>
 	<div class="tweets" id="used"></div></div>
 
-	<div class="tweets_wrap">
+      <div class="tweets_wrap">
 	<p id="rejected-title"></p>
 	<div class="tweets" id="rejected"></div></div>
 
-	<div id="result-text"></div>
+      <div id="result-text"></div>
+    </div>
+    <div id="footer">
+      <ul>
+      <li>Copyright © 2012 <a href="http://twitter.com/skoji">@skoji</a> / </li>
+      <li><a href="https://github.com/skoji/dokusho_map">Source(GitHub)</a> /</li>
+      <li>Powered by <a href="http://cytoscapeweb.cytoscape.org">Cytoscape Web</a>
+      </ul>
+    </div>
   </body>
 </html>
