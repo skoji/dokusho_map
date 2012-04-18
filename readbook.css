@@ -19,9 +19,8 @@ span#keyword-area {
 
 input#keyword {
     width: 30%;
-    font-size: 1.1em;
+    font-size: 1em;
     font-weight: bold;
-    color: #884400;
 }
 
 div.note {
