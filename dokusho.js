@@ -1,8 +1,8 @@
 $(function() {
     $("input#go").click(function() {
         if ($("input#keyword").val().length) {
-			var q = $.parsequery(window.location.href);
-			window.location.href = q.set('keyword', $("input#keyword").val()).toString();
+	    var q = $.parsequery(window.location.href);
+	    window.location.href = q.set('keyword', $("input#keyword").val()).toString();
         } else {
             return false;
         }
@@ -144,12 +144,11 @@ var dokusho = (
             $.each(maindata.rejected, function(i,item) {
                 renderTweet($("#rejected"),item);
             });
-            $("#result-title").text(word);
             $("#used-title").text("「" + word + "」図の作成に使ったツイート");
             $("#rejected-title").text("「"+ word + "」図の作成に使わなかったツイート");
 
             draw();
-            $("#link-to-image").toggle();
+            $("#generated-area").toggle(true);
         }
 
         var ascii = '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@-.,:';
@@ -273,13 +272,14 @@ var dokusho = (
                 if (!options) options = {}
                 vis.exportNetwork(format, url, options);
             },
-			search: function(rootbook) {
-				$("#result").empty();
-				$("#used").empty();
-				$("#rejected").empty();
-				this.clear();
-				searchInternal(rootbook,1);
-			}
+	    search: function(rootbook) {
+		$("#generated-area").toggle(false);
+		$("#result").empty();
+		$("#used").empty();
+		$("#rejected").empty();
+		this.clear();
+		searchInternal(rootbook,1);
+	    }
         };
     }
 )();

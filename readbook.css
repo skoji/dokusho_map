@@ -13,12 +13,24 @@ h2 {
 	color: #AA4400;
 }
 
-input#keyword {
-	width: 30%;
+span#keyword-area {
+    font-weight: bold;
 }
+
+input#keyword {
+    width: 30%;
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #884400;
+}
+
 div.note {
 	font-size: 0.8em;
 	color: #444444;
+}
+
+div.note li {
+    list-style:none;
 }
 
 
@@ -28,8 +40,8 @@ div#result {
 	height: 100%;
 }
 
-p#link-to-image {
-	display: none;
+div#generated-area {
+    display: none;
 }
 
 div.tweets_wrap {
@@ -59,4 +71,22 @@ div.tweets li img {
 
 div#result-text {
 	display: none;
+}
+
+div#footer {
+    margin: 1em 0 0 0;
+    padding: 0.5em;
+    clear: both;
+    background-color: #CCCCCC;
+}
+div#footer ul {
+    margin: 0;
+    padding: 0;
+    
+}
+div#footer li {
+    list-style:none;
+    font-size: 0.8em;
+    color: #884444;
+    display: inline;
 }
