@@ -58,9 +58,10 @@ var dokusho = (
                              }
                            },
                     labelFontSize: {
+						defaultValue: 13,
                         discreteMapper:
                         { attrName: "bookname",
-                          entries: [ { attrValue: maindata.rootbook, value: 13 }]
+                          entries: [ { attrValue: maindata.rootbook, value: 15 }]
                         }
                     },
                     labelFontWeight: {
