@@ -28,7 +28,21 @@ input#keyword {
     font-weight: bold;
 }
 
-div.note {
+ div.note {
+      font-size: 0.8em;
+       color: #444444;
+ }
+
+div.note ul {
+    margin: 1em;
+    padding: 0;
+}
+
+div.note li {
+    list-style:none;
+}
+
+div#result {
     margin-top: 0.5em;
     border: solid 1px;
     width: 100%;
