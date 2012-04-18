@@ -74,9 +74,8 @@ div#result-text {
 
 div#footer {
     margin: 1em 0 0 0;
-    padding: 0.5em;
     clear: both;
-    background-color: #CCCCCC;
+    border-top: dashed 1px;
 }
 div#footer ul {
     margin: 0;
