@@ -43,9 +43,9 @@ div.note li {
 }
 
 div#result {
-    margin-top: 0.5em;
+    margin: 0.5em auto 0.5e auto;
     border: solid 1px;
-    width: 100%;
+    width: 95%;
     height: 100%;
 }
 
